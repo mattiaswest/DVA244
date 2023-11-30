@@ -1,0 +1,6 @@
+﻿  dstring.c
+C:\Users\matti\DVA244\Lab1\dstring.c(19,27): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\matti\DVA244\Lab1\dstring.c(52,53): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+  dstring_test.c
+  Generating Code...
+  dstring.vcxproj -> C:\Users\matti\DVA244\Lab1\dstring\x64\Debug\dstring.exe
