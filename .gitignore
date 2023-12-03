@@ -1,3 +1,6 @@
+*.vsidx
+*.suo
+*.db
 .vs/
 Debug/
 *.vcxproj.*
