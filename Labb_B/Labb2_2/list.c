@@ -17,6 +17,7 @@ static struct node* createListNode(const Data data)
 		printf("Failed to allocate new memory");
 		return NULL;
 	}
+
 	newNode->data = data;
 	newNode->previous = NULL;
 	newNode->next = NULL;
@@ -57,6 +58,7 @@ void addFirst(List* list, const Data data)
 		}
 	}
 	//Remember that the list may be empty when a new node is added.
+	assert(search(*list, data));
 }
 
 /*
@@ -102,22 +104,22 @@ void removeFirst(List* list)
  */
 void removeLast(List* list)
 {
-	if (*list != NULL) {
-		//Handle case of a single element. In this case the head pointer should be updated to NULL
-		if ((*list)->next == NULL) {
-			free(*list);
-			*list = NULL;
-		}
-		else {
-			struct node* temp = *list;
-			//find second to last element
-			while (temp->next->next != NULL) {
-				temp = temp->next;
-			}
-			free(temp->next);
-			temp->next = NULL;
-		}
+	assert(*list != NULL);
+	//Handle case of a single element. In this case the head pointer should be updated to NULL
+	if ((*list)->next == NULL) {
+		free(*list);
+		*list = NULL;
 	}
+	else {
+		struct node* temp = *list;
+		//find second to last element
+		while (temp->next->next != NULL) {
+			temp = temp->next;
+		}
+		free(temp->next);
+		temp->next = NULL;
+	}
+
 }
 /*
  Remove data from list (first occurence).
@@ -141,7 +143,7 @@ int removeElement(List* list, const Data data)
 				if (temp->next != NULL) {
 					temp->next->previous = temp->previous;
 				}
-			return 1;  // Data found and removed
+				return 1;  // Data found and removed
 			}
 
 			temp = temp->next;
@@ -202,6 +204,7 @@ void clearList(List* list)
 		temp = nextNode;
 	}
 	*list = NULL;
+	assert(*list == NULL);
 }
 
 /*
@@ -227,6 +230,7 @@ void printList(const List list, FILE* textfile)
 */
 Data getFirstElement(const List list)
 {
+	assert(list != NULL);
 	return list->data;
 }
 
@@ -236,11 +240,11 @@ Data getFirstElement(const List list)
 */
 Data getLastElement(const List list)
 {
-	if (list != NULL) {
-		struct node* temp = list;
-		while (temp->next != NULL) {
-			temp = temp->next;
-		}
-		return temp->data; //Replace with correct return value
+	assert(list != NULL);
+	struct node* temp = list;
+	while (temp->next != NULL) {
+		temp = temp->next;
 	}
+	return temp->data; //Replace with correct return value
+
 }

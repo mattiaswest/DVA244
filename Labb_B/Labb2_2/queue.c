@@ -19,7 +19,7 @@ int queueIsEmpty(const Queue queue)
 /*Postcondition: data is added last in queue */
 void enqueue(Queue* queue, const Data data)
 {
-    addLast(*queue, data);
+    addLast(queue, data);
     assert(getLastElement(*queue) == data);
    //Tip: To add last in a queue implemented as a linked list, is the same as adding first or last in a linked list.
 }
@@ -28,7 +28,7 @@ void enqueue(Queue* queue, const Data data)
 void dequeue(Queue* queue)
 {
     assert(!queueIsEmpty(*queue));
-    removeFirst(*queue);
+    removeFirst(queue);
     //Tip: Removing from a queue implemented as a linked list, is the same as removing last or first in a linked list.
 }
 

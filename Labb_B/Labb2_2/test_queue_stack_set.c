@@ -24,10 +24,13 @@ void testFunctionSet(void);
 int main(void)
 {
 
-    menuStack();
-    //testFunctionSet();
     printf("test");
-    menuSet();
+    //menuStack();
+    testFunctionSet();
+    testFunctionQueue();
+    testFunctionStack();
+    //menuSet();
+    //menuQueue();
     return 0;
 }
 
@@ -178,7 +181,7 @@ void menuSet()
             default: printf("Wrong input\n");
         }
         
-    }while(choice != 5);
+    }while(choice != 4);
 }
 
 void testFunctionQueue()

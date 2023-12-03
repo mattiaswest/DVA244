@@ -17,17 +17,17 @@ Set initializeSet(void)
 /* Postcondition: 'element' is in the set (tip, use isInSet() to verify). */
 void addToSet(Set* set, const Data element)
 {
-    if (!isInSet(set, element))
+    if (!isInSet(*set, element))
         addFirst(set, element);
-    assert(isInSet(set, element));
+    assert(isInSet(*set, element));
     //Remember to not at elements that are already in the set.
 }
 
 /* Postcondition: 'element is no longer in the set (tip: use isInSet() to verify).*/
 void removeFromSet(Set* set, const Data element)
 {
-    removeElement(*set, element);
-    assert(!isInSet(set, element));
+    removeElement(set, element);
+    assert(!isInSet(*set, element));
 }
 
 
