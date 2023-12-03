@@ -63,7 +63,7 @@ static void buildTreeSortedFromArray(BSTree* tree, const int arr[], int size)
         struct treeNode* root = createNode(arr[mid]);
         *tree = root;
 
-        buildTreeSortedFromArray(&((*tree)->left), arr, mid);
+        buildTreeSortedFromArray(&((*tree)->left), arr, mid-1);
         buildTreeSortedFromArray(&((*tree)->right), arr[mid], size - mid);
     }
 }
@@ -170,13 +170,24 @@ void printPostorder(const BSTree tree, FILE *textfile)
 
 int find(const BSTree tree, int data)
 {
-   // Remember that the tree may be empty here
-   return -1; //Replace with correct return value
+	if (tree == NULL)
+		return 0;
+	if (data == tree->data)
+		return 1;
+	else if (data < tree->data)
+		return find(tree->left, data);
+	else
+		return find(tree->right, data);
 }
 
 
 void removeElement(BSTree* tree, int data)
 {
+    if (isEmpty(*tree))
+    {
+        printf("The element can not be found");
+        return;
+    }
    /* No data should/can be removed from an empty tree.
     Three cases: Leaf (no children), One child (left or right), Two children
     
@@ -236,6 +247,3 @@ void freeTree(BSTree* tree)
     free(*tree);
     *tree = NULL;
 }
-
-
-
