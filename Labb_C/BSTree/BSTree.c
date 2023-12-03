@@ -57,13 +57,18 @@ static int* writeSortedToArray(const BSTree tree)
 /* Build a sorted, balanced tree from the array */
 static void buildTreeSortedFromArray(BSTree* tree, const int arr[], int size)
 {
-    if (size > 1)
+   /* printf("Size: %d [", size);
+    for (int i = 0; i < size; i++)
+        printf("%d ", arr[i]);
+    printf("]\n");*/
+    if (size < 1)
+        return;
     {
         int mid = (size / 2);
         struct treeNode* root = createNode(arr[mid]);
         *tree = root;
 
-        buildTreeSortedFromArray(&((*tree)->left), arr, mid-1);
+        buildTreeSortedFromArray(&((*tree)->left), arr, mid);
         buildTreeSortedFromArray(&((*tree)->right), arr[mid], size - mid);
     }
 }
@@ -205,14 +210,23 @@ int numberOfNodes(const BSTree tree)
 
 int depth(const BSTree tree)
 {
-   return -1; //Replace with correct return value
+    if (tree == NULL)
+        return 0;
+    int leftDepth = depth(tree->left);
+    int rightDepth = depth(tree->right);
+
+    if (leftDepth > rightDepth)
+        return leftDepth+1;
+    else
+        return rightDepth+1;
 }
 
 
 int minDepth(const BSTree tree)
 {
-    //See math.h for useful functions
-   return -1; //Replace with correct return value
+    int n = numberOfNodes(tree);
+
+   return log10(n+1)/log10(2); //Replace with correct return value
 }
 
 /*
@@ -223,8 +237,9 @@ int minDepth(const BSTree tree)
 void balanceTree(BSTree* tree)
 {
     int* arr = writeSortedToArray(*tree);
+    int size = numberOfNodes(*tree);
     freeTree(tree);
-    buildTreeSortedFromArray(tree, arr, sizeof(arr));
+    buildTreeSortedFromArray(tree, arr, size);
     free(arr);
     arr = NULL;
    /* Suggested algorithm:
