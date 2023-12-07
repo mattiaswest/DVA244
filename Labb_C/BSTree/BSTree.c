@@ -54,14 +54,39 @@ static int* writeSortedToArray(const BSTree tree)
    return arrayBST; //Replace with correct return value
 }
 
+static void buildTreeHelper(BSTree* tree, const int arr[], int start, int end)
+{
+    if (start > end)
+    {
+        //base case
+        return;
+    }
+
+    int mid = start + (end - start) / 2;
+
+    struct treeNode* newNode = createNode(arr[mid]);
+
+    // Set the root of the current subtree
+    *tree = newNode;
+
+    // Recursively build the left and right subtrees
+    buildTreeHelper(&((*tree)->left), arr, start, mid - 1);
+    buildTreeHelper(&((*tree)->right), arr, mid + 1, end);
+}
+
 /* Build a sorted, balanced tree from the array */
 static void buildTreeSortedFromArray(BSTree* tree, const int arr[], int size)
 {
+    buildTreeHelper(tree, arr, 0, size - 1);
+
    /* printf("Size: %d [", size);
     for (int i = 0; i < size; i++)
         printf("%d ", arr[i]);
     printf("]\n");*/
-    if (size < 1)
+    
+    //old solution
+    /*
+    if (size <= 0)
         return;
     {
         int mid = (size / 2);
@@ -79,8 +104,8 @@ static void buildTreeSortedFromArray(BSTree* tree, const int arr[], int size)
         buildTreeSortedFromArray(&((*tree)->left), arr, mid);
         buildTreeSortedFromArray(&((*tree)->right), arr, size - mid - 1);
     }
+    */
 }
-
 
 /* Implementation of the tree - the functions in the interface */
 
@@ -316,6 +341,8 @@ void balanceTree(BSTree* tree)
       - build tree recursively from array (buildTreeSortedFromArray)
       - free memory for the dynamic array
     */
+    //assert(numberOfNodes(*tree) == size);
+    //assert(depth(*tree) == minDepth(*tree));
 }
 
 /*Postcondition: the tree is empty*/
