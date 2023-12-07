@@ -322,7 +322,7 @@ int minDepth(const BSTree tree)
 
     int n = numberOfNodes(tree);
 
-   return (log10(n+1)/log10(2))+1; 
+    return ceil(log2(n + 1));
 }
 
 /*
@@ -344,8 +344,8 @@ void balanceTree(BSTree* tree)
       - build tree recursively from array (buildTreeSortedFromArray)
       - free memory for the dynamic array
     */
-    //assert(numberOfNodes(*tree) == size);
-    //assert(depth(*tree) == minDepth(*tree));
+    assert(numberOfNodes(*tree) == size);
+    assert(depth(*tree) == minDepth(*tree));
 }
 
 /*Postcondition: the tree is empty*/
