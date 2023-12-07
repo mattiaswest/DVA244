@@ -317,9 +317,12 @@ int depth(const BSTree tree)
 
 int minDepth(const BSTree tree)
 {
+    if (tree == NULL)
+        return 0;
+
     int n = numberOfNodes(tree);
 
-   return log10(n+1)/log10(2); 
+   return (log10(n+1)/log10(2))+1; 
 }
 
 /*
