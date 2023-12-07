@@ -65,11 +65,19 @@ static void buildTreeSortedFromArray(BSTree* tree, const int arr[], int size)
         return;
     {
         int mid = (size / 2);
+
+        //Odd size
+        if (size % 2 == 0)
+            mid = size / 2 - 1;
+        //Even size
+        else
+            mid = (size - 1) / 2;
+
         struct treeNode* root = createNode(arr[mid]);
         *tree = root;
 
         buildTreeSortedFromArray(&((*tree)->left), arr, mid);
-        buildTreeSortedFromArray(&((*tree)->right), arr[mid], size - mid);
+        buildTreeSortedFromArray(&((*tree)->right), arr, size - mid - 1);
     }
 }
 
@@ -175,29 +183,88 @@ void printPostorder(const BSTree tree, FILE *textfile)
 
 int find(const BSTree tree, int data)
 {
-	if (tree == NULL)
-		return 0;
-	if (data == tree->data)
-		return 1;
+    if (tree == NULL)
+    {
+        printf("The element %d can not be found.\n");
+        return 0;
+    }
+    if (data == tree->data)
+    {
+        printf("The element %d has been found.\n");
+        return 1;
+    }
 	else if (data < tree->data)
 		return find(tree->left, data);
 	else
 		return find(tree->right, data);
 }
 
+struct treeNode* findMinNode(struct treeNode* node)
+{
+    while (node->left != NULL)
+    {
+        node = node->left;
+    }
+    return node;
+}
+
 
 void removeElement(BSTree* tree, int data)
 {
-    if (isEmpty(*tree))
-    {
-        printf("The element can not be found");
+    if (!find(*tree, data))
         return;
-    }
+    *tree = removeElementRecursive(*tree, data);
+    
+        
    /* No data should/can be removed from an empty tree.
     Three cases: Leaf (no children), One child (left or right), Two children
     
     Don't forget to free the dynamic memory for the removed node.
     */
+}
+
+struct treeNode* removeElementRecursive(struct treeNode* root, int data)
+{
+    if (root == NULL)
+    {
+        return NULL;
+    }
+
+    if (data < root->data)
+    {
+        root->left = removeElementRecursive(root->left, data);
+    }
+    else if (data > root->data)
+    {
+        root->right = removeElementRecursive(root->right, data);
+    }
+    else
+    {
+        // Node with only one child or no child
+        if (root->left == NULL)
+        {
+            struct treeNode* temp = root->right;
+            free(root);
+            return temp;
+        }
+        else if (root->right == NULL)
+        {
+            struct treeNode* temp = root->left;
+            free(root);
+            return temp;
+        }
+
+        // Node with two children: Get the inorder successor (smallest in the right subtree)
+        struct treeNode* temp = findMinNode(root->right);
+
+        // Copy the inorder successor's data to this node
+        root->data = temp->data;
+
+        // Delete the inorder successor
+        root->right = removeElementRecursive(root->right, temp->data);
+    }
+
+    return root;
 }
 
 int numberOfNodes(const BSTree tree)
@@ -207,6 +274,7 @@ int numberOfNodes(const BSTree tree)
     else
         return 1 + numberOfNodes(tree->left) + numberOfNodes(tree->right);
 }
+
 
 int depth(const BSTree tree)
 {
@@ -226,7 +294,7 @@ int minDepth(const BSTree tree)
 {
     int n = numberOfNodes(tree);
 
-   return log10(n+1)/log10(2); //Replace with correct return value
+   return log10(n+1)/log10(2); 
 }
 
 /*

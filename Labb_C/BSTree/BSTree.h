@@ -35,8 +35,12 @@ void printPostorder(const BSTree tree, FILE *textfile);
 /* Return 1 if 'data' is in the tree, 0 if not. */
 int find(const BSTree tree, int data);
 
+struct treeNode* findMinNode(struct treeNode* node);
+
 /* Remove 'data' from the tree, if it is in the tree */
 void removeElement(BSTree* tree, int data);
+
+struct treeNode* removeElementRecursive(struct treeNode* root, int data);
 
 /* Return the number of nodes in tree */
 int numberOfNodes(const BSTree tree);
