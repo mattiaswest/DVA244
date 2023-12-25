@@ -37,6 +37,6 @@ Person getRandomPerson(void)
 
 void printPerson(Person* personToPrint, int index)
 {
-    printf("%d --- %d: %s, weight: %f ", index, personToPrint->personalNumber, personToPrint->name, personToPrint->weight);
+    printf("%d --- %d: %s, weight: %f \n", index, personToPrint->personalNumber, personToPrint->name, personToPrint->weight);
 }
 

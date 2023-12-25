@@ -34,8 +34,8 @@ void menu(void); /*A menu to test your functions with manual data och random dat
 
 int main(void)
 {
-    menu();
-//    test();
+//    menu();
+    test();
 //    compareHashTableSizes();
 
     return 0;
@@ -69,7 +69,7 @@ static unsigned int getTableSize(int nr)
     do
     {
         printf("Size of hashtable %d (at least %d): ", nr, SIZE);
-        scanf("%u", &tableSize); //It is prefered to let the size be a prime number
+        scanf_s("%u", &tableSize); //It is prefered to let the size be a prime number
     } while (tableSize < SIZE);
 
     return tableSize;
@@ -83,7 +83,7 @@ void compareHashTableSizes(void)
     int i, j;
     
     printf("How many hashtables do you want to compare: ");
-    scanf("%d", &noOfTables);
+    scanf_s("%d", &noOfTables);
     if(noOfTables <= 0)
     {
         printf("No tables selected, shutting down\n");
@@ -132,6 +132,7 @@ void compareHashTableSizes(void)
 void test(void)
 {
     HashTable htable = createHashTable(10); /*A better size for the amount 9 is 13. However, this function (test) is only for testing that the hashtables' functions are correctly implemented, and %10 is easier than %13 for most to calculate. .*/
+    int size = getSize(&htable);
     assert(getSize(&htable) == 10);
     Person arrPersons[9] = {{931014, 81.0, "Tobias"},
                             {881011, 75.0, "Alva"},
@@ -151,6 +152,7 @@ void test(void)
     {
         collisions+= insertElement(&htable, arrPersons[i].personalNumber, arrPersons[i]);
     }
+    //printHashTable(&htable);
     assert(htable.table[0].key == 900610);
     assert(htable.table[1].key == 881011);
     assert(htable.table[2].key == 740318);
@@ -248,7 +250,7 @@ void menu(void)
     const Value *aPersonPointer;
     do{
         printf("\n----------Menu Hashtable----------\n1 - Create Hashtable\n2 - Insert element\n3 - Print hashtable\n4 - Search for element\n5 - Delete element\n6 - Get size of hashtable\n7 - Free hashtable\n8 - Exit\n");
-        scanf("%d", &choice);
+        scanf_s("%d", &choice);
         
         switch (choice)
         {
@@ -258,7 +260,7 @@ void menu(void)
                 break;
             case 2:
                 printf("1 - Random data\n2 - Manual data\n");
-                scanf("%d", &subChoice);
+                scanf_s("%d", &subChoice);
                 switch (subChoice) {
                     case 1:
                         aPerson = getRandomPerson();
@@ -270,9 +272,9 @@ void menu(void)
                         fgets(aPerson.name, 28, stdin);
                         aPerson.name[strlen(aPerson.name)-1] = '\0'; /*Remove the enter-character that fgets reads from the keyboard*/
                         printf("Enter weight: ");
-                        scanf("%f", &aPerson.weight);
+                        scanf_s("%f", &aPerson.weight);
                         printf("Enter personal number (YYMMDD): ");
-                        scanf("%d", &aPerson.personalNumber);
+                        scanf_s("%d", &aPerson.personalNumber);
                         break;
                     default: printf("Invalid input\n");
                         break;
@@ -286,7 +288,7 @@ void menu(void)
                 break;
             case 4:
                 printf("Enter personal number (YYMMDD) to search for: ");
-                scanf("%d", &pNr);
+                scanf_s("%d", &pNr);
                 aPersonPointer = lookup(&htable, pNr);
                 if(aPersonPointer == NULL)
                     printf("%d could not be found in the table\n", pNr);
@@ -295,7 +297,7 @@ void menu(void)
                 break;
             case 5:
                 printf("Enter personal number (YYMMDD) to delete: ");
-                scanf("%d", &pNr);
+                scanf_s("%d", &pNr);
                 deleteElement(&htable, pNr);
                 break;
             case 6:
