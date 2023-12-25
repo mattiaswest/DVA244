@@ -24,7 +24,7 @@ static int linearProbe(const HashTable* htable, Key key, unsigned int *col)
     int index = hash(key, htable->size);
     for (unsigned int i = 0; i < htable->size; i++)
     {
-        if (htable->table[index + i].key == 0 || htable->table->key == key)
+        if (htable->table[(index + i) % htable->size].key == 0 || htable->table->key == key)
             return (index + i) % htable->size;
         (*col)++;
     }
@@ -59,7 +59,7 @@ unsigned int insertElement(HashTable* htable, const Key key, const Value value)
     {
         htable->table[index].key = key;
         htable->table[index].value = value;
-        printf("Index: %d Key: %d Value.pnr %d\n", index, htable->table[index].key, htable->table[index].value.personalNumber);
+        //printf("Index: %d Key: %d Value.pnr %d\n", index, htable->table[index].key, htable->table[index].value.personalNumber);
     }
     else
         printf("The table is full!\n");
