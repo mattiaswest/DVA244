@@ -24,7 +24,7 @@ static int linearProbe(const HashTable* htable, Key key, unsigned int *col)
     int index = hash(key, htable->size);
     for (unsigned int i = 0; i < htable->size; i++)
     {
-        if (htable->table[(index + i) % htable->size].key == 0 || htable->table->key == key)
+        if (htable->table[(index + i) % htable->size].key == 0 || htable->table[(index+i)%htable->size].key == key)
             return (index + i) % htable->size;
         (*col)++;
     }

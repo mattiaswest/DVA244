@@ -152,7 +152,7 @@ void test(void)
     {
         collisions+= insertElement(&htable, arrPersons[i].personalNumber, arrPersons[i]);
     }
-    //printHashTable(&htable);
+    printHashTable(&htable);
     assert(htable.table[0].key == 900610);
     assert(htable.table[1].key == 881011);
     assert(htable.table[2].key == 740318);
@@ -170,6 +170,8 @@ void test(void)
     aPerson.personalNumber = 881011;
     aPerson.weight = 65.2;
     insertElement(&htable, 881011,aPerson);
+    printf("\n\n_____________________\n\n");
+    printHashTable(&htable);
     assert(htable.table[1].value.weight == aPerson.weight);
     assert(strcmp(htable.table[1].value.name, aPerson.name) == 0);
     
