@@ -66,9 +66,10 @@ void deleteElement(HashTable* htable, const Key key)
             Value tempVal = htable->table[(index + i)%htable->size].value;
             htable->table[(index+i)%htable->size].key = 0;
             unsigned int col = insertElement(htable, tempKey, tempVal);
-            printf("Key: %d\n", htable->table[(index + i) % htable->size].key);
+            //printf("Key: %d\n", htable->table[(index + i) % htable->size].key);
         }
     }
+    assert(lookup(htable, key) == NULL);
 }
 
 const Value* lookup(const HashTable* htable, const Key key)
@@ -92,6 +93,7 @@ void freeHashTable(HashTable* htable)
     }
     else
         printf("Error.");
+    assert(htable->size == 0);
 }
 
 
