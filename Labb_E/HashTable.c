@@ -84,7 +84,14 @@ const Value* lookup(const HashTable* htable, const Key key)
 /*Postcondition: hashtable have size 0*/
 void freeHashTable(HashTable* htable)
 {
-
+    if (htable != NULL)
+    {
+        free(htable->table);
+        htable->table = NULL;
+        htable->size = 0;
+    }
+    else
+        printf("Error.");
 }
 
 
