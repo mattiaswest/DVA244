@@ -5,20 +5,11 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-
-/* 
- This function takes a key and returnes a hash-index (i.e. an index in the
- array/hashtable)
- */
 static int hash(Key key, int tablesize)
 {
     return key%tablesize;
 }
 
-/*
- Searches according to the principle of linear probing.
- The number of collisions are returned via the pointer col in the parameter list
-*/
 static int linearProbe(const HashTable* htable, Key key, unsigned int *col)
 {
     int index = hash(key, htable->size);
@@ -31,7 +22,6 @@ static int linearProbe(const HashTable* htable, Key key, unsigned int *col)
     return -1;
 }
 
-/*Allocate memory for the hashtable*/
 HashTable createHashTable(unsigned int size)
 {
     struct Bucket *temp = (struct Bucket*)calloc(size, sizeof(struct Bucket));
@@ -46,11 +36,6 @@ HashTable createHashTable(unsigned int size)
     return;
 }
 
-
-/* 
- Return number of collisions (calculated in linearProbe
- Postcondition: there is an element for key in the table (use loopup to verify)
-*/
 unsigned int insertElement(HashTable* htable, const Key key, const Value value)
 {
     int col = 0;
@@ -74,15 +59,16 @@ void deleteElement(HashTable* htable, const Key key)
     int index = linearProbe(htable, key, &key);
     if (index != -1)
     {
+        htable->table[index].key = NULL;
         for (unsigned int i = 0; i < htable->size; i++)
         {
             int tempKey = htable->table[(index+i)%htable->size].key;
             Value tempVal = htable->table[(index + i)%htable->size].value;
             htable->table[(index+i)%htable->size].key = 0;
             unsigned int col = insertElement(htable, tempKey, tempVal);
+            printf("Key: %d\n", htable->table[(index + i) % htable->size].key);
         }
     }
-
 }
 
 const Value* lookup(const HashTable* htable, const Key key)
@@ -135,6 +121,5 @@ void printHashTable(const HashTable* htable)
         if (htable->table[i].key != 0)
             printPerson(&(htable->table[i].value), i);
     }
-    // Tip: use printPerson() in Person.h to print a persons' information
 }
 
