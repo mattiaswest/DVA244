@@ -1,0 +1,19 @@
+---------------------------------------------
+--------         Bubble sort        ---------
+---------------------------------------------
+
+Unsorted: 
+  10 element:    68 comparisons,     6 swaps
+  20 element:   400 comparisons,   113 swaps
+  40 element:  1634 comparisons,   474 swaps
+
+Forwardsorted: 
+  10 element:    20 comparisons,     0 swaps
+  20 element:    40 comparisons,     0 swaps
+  40 element:    80 comparisons,     0 swaps
+
+Backsorted: 
+  10 element:   109 comparisons,    45 swaps
+  20 element:   419 comparisons,   190 swaps
+  40 element:  1639 comparisons,   780 swaps
+

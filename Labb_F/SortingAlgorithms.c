@@ -9,7 +9,7 @@ int isImplemented(SortingAlgorithm algorithm)
 {
     switch (algorithm)
     {
-//      case BUBBLE_SORT:
+      case BUBBLE_SORT:
 //      case INSERTION_SORT:
 //      case SELECTION_SORT:
 //      case QUICK_SORT:
@@ -33,8 +33,25 @@ int isImplemented(SortingAlgorithm algorithm)
 /******************************************************************************************/
 /*Here you will implement your algorithms*/
 
+
 static void bubbleSort(ElementType* arrayToSort, unsigned int size, Statistics* statistics)
 {
+    unsigned int i, j;
+    unsigned int flag = 0; //Initializing variable to keep track if any swaps were executed.
+    for (i = 0; lessThan(i, size-1, statistics); i++)
+    {
+        flag = 0;
+        for (j = 0; lessThan(j, size - i - 1, statistics); j++)
+        {
+            if (greaterThan(arrayToSort[j], arrayToSort[j + 1], statistics))
+            {
+                swapElements(&(arrayToSort[j]), &(arrayToSort[j + 1]), statistics);
+                flag = 1;
+            }
+        }
+        if (flag == 0)
+            break;
+    }
 }
 
 static void insertionSort(ElementType* arrayToSort, unsigned int size, Statistics* statistics)
