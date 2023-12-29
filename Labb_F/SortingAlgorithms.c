@@ -93,42 +93,47 @@ static void mergeSort(ElementType* arrayToSort, unsigned int size, Statistics* s
 {
 }
 
-static int partition(ElementType* arrayToSort, int size, Statistics* statistics)
+ElementType partition(ElementType* arrayToSort, int start, int end, Statistics* statistics)
 {
-    int pivot = arrayToSort[0];
-    int low = -1;
+    ElementType pivot = arrayToSort[start];
+    ElementType i = start + 1;
 
-    for (int i = 1; lessThanOrEqualTo(i, size - 1, statistics); i++)
+    for (ElementType loop = i; lessThanOrEqualTo(loop, end, statistics); loop++)
     {
-        if (lessThan(arrayToSort[i], pivot, statistics))
+        if (lessThan(arrayToSort[loop], pivot, statistics))
         {
-            low++;
-            swapElements((arrayToSort + low + 1), &arrayToSort[i], statistics);
-
+            swapElements(&arrayToSort[i], &arrayToSort[loop], statistics);
+            i++;
         }
     }
 
-    swapElements(&arrayToSort[low + 1], &arrayToSort[0], statistics);
+    swapElements(&arrayToSort[i -1], &arrayToSort[start], statistics);
 
-    return low + 1;
+    return i-1;
+}
+
+static void quickSortHelper(ElementType* arrayToSort, int start, int end, Statistics* statistics)
+{
+    if (lessThan(start, end, statistics))
+    {
+        ElementType pivotIndex = partition(arrayToSort, start, end, statistics);
+        
+        if (equalTo(pivotIndex, 0, statistics))
+        {
+            quickSortHelper(arrayToSort, pivotIndex + 1, end, statistics);
+        }
+        else
+        {
+            quickSortHelper(arrayToSort, start, pivotIndex - 1, statistics);
+            quickSortHelper(arrayToSort, pivotIndex + 1, end, statistics);
+
+        }
+    }
 }
 
 static void quickSort(ElementType* arrayToSort, unsigned int size, Statistics* statistics)
 {
-
-    if (lessThanOrEqualTo(size, 1, statistics))
-    {
-        return;
-    }
-
-    int pivot = partition(arrayToSort, size, statistics);
-
-
-    quickSort(arrayToSort, pivot, statistics);        //Sorting left sub-tree
-
-    quickSort(arrayToSort + pivot + 1, size - pivot - 1, statistics);        //Sorting right sub-tree
-
-    return;
+    quickSortHelper(arrayToSort, 0, size - 1, statistics);
 }
 
 /******************************************************************************************/

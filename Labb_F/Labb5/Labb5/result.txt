@@ -41,17 +41,17 @@ Backsorted:
 ---------------------------------------------
 
 Unsorted: 
-  10 element:    69 comparisons,    10 swaps
-  20 element:   153 comparisons,    48 swaps
-  40 element:   452 comparisons,   103 swaps
+  10 element:    75 comparisons,    10 swaps
+  20 element:   165 comparisons,    48 swaps
+  40 element:   479 comparisons,   103 swaps
 
 Forwardsorted: 
-  10 element:   118 comparisons,     9 swaps
-  20 element:   438 comparisons,    19 swaps
-  40 element:  1678 comparisons,    39 swaps
+  10 element:   126 comparisons,     9 swaps
+  20 element:   456 comparisons,    19 swaps
+  40 element:  1716 comparisons,    39 swaps
 
 Backsorted: 
-  10 element:   118 comparisons,    34 swaps
-  20 element:   438 comparisons,   119 swaps
-  40 element:  1678 comparisons,   439 swaps
+  10 element:   126 comparisons,    34 swaps
+  20 element:   456 comparisons,   119 swaps
+  40 element:  1716 comparisons,   439 swaps
 
