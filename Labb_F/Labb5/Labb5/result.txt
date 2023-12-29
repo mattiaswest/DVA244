@@ -17,3 +17,41 @@ Backsorted:
   20 element:   419 comparisons,   190 swaps
   40 element:  1639 comparisons,   780 swaps
 
+---------------------------------------------
+--------       Selection sort       ---------
+---------------------------------------------
+
+Unsorted: 
+  10 element:   127 comparisons,     9 swaps
+  20 element:   457 comparisons,    19 swaps
+  40 element:  1717 comparisons,    39 swaps
+
+Forwardsorted: 
+  10 element:   127 comparisons,     9 swaps
+  20 element:   457 comparisons,    19 swaps
+  40 element:  1717 comparisons,    39 swaps
+
+Backsorted: 
+  10 element:   127 comparisons,     9 swaps
+  20 element:   457 comparisons,    19 swaps
+  40 element:  1717 comparisons,    39 swaps
+
+---------------------------------------------
+--------         Quick sort         ---------
+---------------------------------------------
+
+Unsorted: 
+  10 element:    69 comparisons,    10 swaps
+  20 element:   153 comparisons,    48 swaps
+  40 element:   452 comparisons,   103 swaps
+
+Forwardsorted: 
+  10 element:   118 comparisons,     9 swaps
+  20 element:   438 comparisons,    19 swaps
+  40 element:  1678 comparisons,    39 swaps
+
+Backsorted: 
+  10 element:   118 comparisons,    34 swaps
+  20 element:   438 comparisons,   119 swaps
+  40 element:  1678 comparisons,   439 swaps
+

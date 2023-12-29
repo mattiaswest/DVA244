@@ -11,8 +11,8 @@ int isImplemented(SortingAlgorithm algorithm)
     {
       case BUBBLE_SORT:
 //      case INSERTION_SORT:
-//      case SELECTION_SORT:
-//      case QUICK_SORT:
+      case SELECTION_SORT:
+      case QUICK_SORT:
 //      case MERGE_SORT:
             return 1;
         default:
@@ -45,7 +45,7 @@ static void bubbleSort(ElementType* arrayToSort, unsigned int size, Statistics* 
         {
             if (greaterThan(arrayToSort[j], arrayToSort[j + 1], statistics))
             {
-                swapElements(&(arrayToSort[j]), &(arrayToSort[j + 1]), statistics);
+                swapElements(&arrayToSort[j], &arrayToSort[j + 1], statistics);
                 flag = 1;
             }
         }
@@ -54,20 +54,81 @@ static void bubbleSort(ElementType* arrayToSort, unsigned int size, Statistics* 
     }
 }
 
+//UNFINISHED IMPLEMENTATION
 static void insertionSort(ElementType* arrayToSort, unsigned int size, Statistics* statistics)
 {
+    unsigned int i, j, x;
+
+    for (i = 1; lessThan(i, size, statistics); i++)
+    {
+        j = i - 1;
+        x = arrayToSort[i];
+
+        /* Move elements of arr[0..i-1] that are greater than key
+        to one position ahead of their current position */
+        while (greaterThanOrEqualTo(j, 0, statistics) && greaterThan(arrayToSort[j], x, statistics))
+        {
+            arrayToSort[j + 1] = arrayToSort[j];
+            j--;
+        }
+        arrayToSort[j + 1] = x;
+    }
 }
 
 static void selectionSort(ElementType* arrayToSort, unsigned int size, Statistics* statistics)
 {
+    int i, j, k;
+    for (i = 0; lessThan(i, size - 1, statistics); i++)
+    {
+        for (j = k = i; lessThan(j, size, statistics); j++)
+        {
+            if(lessThan(arrayToSort[j], arrayToSort[k], statistics))
+                k=j;
+        }
+        swapElements(&arrayToSort[i], &arrayToSort[k], statistics);
+    }
 }
 
 static void mergeSort(ElementType* arrayToSort, unsigned int size, Statistics* statistics)
 {
 }
 
+static int partition(ElementType* arrayToSort, int size, Statistics* statistics)
+{
+    int pivot = arrayToSort[0];
+    int low = -1;
+
+    for (int i = 1; lessThanOrEqualTo(i, size - 1, statistics); i++)
+    {
+        if (lessThan(arrayToSort[i], pivot, statistics))
+        {
+            low++;
+            swapElements((arrayToSort + low + 1), &arrayToSort[i], statistics);
+
+        }
+    }
+
+    swapElements(&arrayToSort[low + 1], &arrayToSort[0], statistics);
+
+    return low + 1;
+}
+
 static void quickSort(ElementType* arrayToSort, unsigned int size, Statistics* statistics)
 {
+
+    if (lessThanOrEqualTo(size, 1, statistics))
+    {
+        return;
+    }
+
+    int pivot = partition(arrayToSort, size, statistics);
+
+
+    quickSort(arrayToSort, pivot, statistics);        //Sorting left sub-tree
+
+    quickSort(arrayToSort + pivot + 1, size - pivot - 1, statistics);        //Sorting right sub-tree
+
+    return;
 }
 
 /******************************************************************************************/
